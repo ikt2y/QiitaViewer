@@ -30,4 +30,4 @@ var styles = StyleSheet.create({
     }
 });
 
-module exports = EntryList;
+module.exports = EntryList;
