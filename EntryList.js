@@ -4,13 +4,34 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
 } from 'react-native';
+
+// テストデータ
+var TEST_ENTRY_DATA = [
+    {
+        user: {
+            profile_image_url: 'http://facebook.github.io/react/img/logo_og.png',
+            id: 'tatatataid'
+        },
+        title: 'React Native Test!!'
+    }
+];
+// インスタンス化
+var entry = TEST_ENTRY_DATA[0];
 
 var EntryList = React.createClass({
     render: function() {
         return (
             <View style={styles.container}>
-                <Text style={styles.description}>This is Entry List Component !!</Text>
+                <Image
+                    source={{uri: entry.user.profile_image_url}}
+                    style={styles.thumbnail}
+                />
+                <View style={styles.rightContainer}>
+                    <Text style={styles.title}>{entry.title}</Text>
+                    <Text style={styles.name}>{entry.user.id}</Text>
+                </View>
             </View>
         );
     }
@@ -21,12 +42,25 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+        padding: 10
     },
-    description: {
-        fontSize: 18,
-        backgroundColor: "#FFFFFF"
+    thumbnail: {
+        width: 100,
+        height: 100,
+        marginRight: 10
+    },
+    rightContainer: {
+        flex: 1
+    },
+    title: {
+        fontSize: 20,
+        marginBottom: 8
+    },
+    name: {
+        color: '#656565'
     }
 });
 
