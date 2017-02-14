@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import EntryList from './EntryList.js';
 import {
   StyleSheet,
-  Text,
-  View,
+  NavigatorIOS,
 } from 'react-native';
 
 var FeaturedTab = React.createClass({
