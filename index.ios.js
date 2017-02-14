@@ -3,6 +3,10 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+ // #TODO: タブバーの切り替えを可能にする
+ // #TODO: 検索機能の実装
+ // #TODO: Android版の作成
+'use strict';
 import React, { Component } from 'react';
 import FeaturedTab from './FeaturedTab.js';
 import SearchTab from './SearchTab.js';
@@ -30,7 +34,7 @@ var QiitaViewer = React.createClass({
             <TabBarIOS selectedTab={this.state.selectedTab}>
                 <TabBarIOS.Item
                     selected={this.state.selectedTab === 'FeaturedTab'}
-                    icon={{uri: 'featured'}}
+                    systemIcon = "featured"
                     onPress={() => {
                         this.setState(
                             {selectedTab: 'FeaturedTab'}
@@ -41,7 +45,7 @@ var QiitaViewer = React.createClass({
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     selected={this.state.selectedTab === 'SearchTab'}
-                    icon={{uri: 'search'}}
+                    systemIcon ="search"
                     onPress={() => {
                         this.setState(
                             {selectedTab: 'SearchTab'}
