@@ -6,6 +6,8 @@
  // #TODO: タブバーの切り替えを可能にする
  // #TODO: 検索機能の実装
  // #TODO: Android版の作成
+ // #TODO: お気に入り機能の実装
+ // #TODO: Realmを使ってデータを管理する
 'use strict';
 import React, { Component } from 'react';
 import FeaturedTab from './FeaturedTab.js';
