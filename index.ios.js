@@ -16,11 +16,14 @@ import {
     ListView
 } from 'react-native';
 
+// 参照もとのURLを代入してインスタンス化
 var QIITA_URL = "https://qiita.com/api/v2/tags/reactjs/items";
-// UINavigationController
 var QiitaViewer = React.createClass({
     render: function() {
         return (
+            //  UINavigationController
+                // titileがNavigartion Barに表示する文字列
+                // どのComponentを利用するかをハンドリング
           <NavigatorIOS
             style={styles.navigator}
             initialRoute={{
@@ -30,8 +33,9 @@ var QiitaViewer = React.createClass({
         );
     }
 });
-
+// 1.リスト画面
 var ReactQiitaList = React.createClass({
+    // 1-1.インスタンス作成のたびに呼ばれる
     getInitialState: function() {
         return {
             items: new ListView.DataSource({
@@ -40,9 +44,7 @@ var ReactQiitaList = React.createClass({
             loaded: false,
         };
     },
-    componentDidMount: function() {
-        this.fetchData();
-    },
+    // 1-2.このメソッドにより仮想DOMが作成される
     render: function() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -54,6 +56,24 @@ var ReactQiitaList = React.createClass({
                 style={styles.listView}/>
         );
     },
+    // 1-3.描画が成功して、DOMにアクセス可能になる
+    componentDidMount: function() {
+        this.fetchData();
+    },
+        // APIの呼び出し
+    fetchData: function() {
+        fetch(QIITA_URL)
+            .then((response) => response.json())
+            .then((responseData) => {
+                // stateの更新
+                this.setState({
+                    items: this.state.items.cloneWithRows(responseData),
+                    loaded: true,
+                });
+            })
+        .done();
+    },
+    // 1-4.ローディング中の画面
     renderLoadingView: function() {
         return (
             <View style={styles.container}>
@@ -63,6 +83,7 @@ var ReactQiitaList = React.createClass({
             </View>
         );
     },
+    // 1-5.ローディング後の画面
     renderItem: function(item, sectionID, rowID) {
         return (
             <TouchableWithoutFeedback onPress={() => this.onPressed(item)}>
@@ -78,20 +99,9 @@ var ReactQiitaList = React.createClass({
             </TouchableWithoutFeedback>
         );
     },
-    // API呼び出し
-    fetchData: function() {
-        fetch(QIITA_URL)
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    items: this.state.items.cloneWithRows(responseData),
-                    loaded: true,
-                });
-            })
-        .done();
-    },
-    // セルのタッチイベント
+    // 1-6.セルのタッチイベント
     onPressed: function(item) {
+        // 遷移させる
         this.props.navigator.push({
             title: item.title,
             component: ReactQiitaItemView,
@@ -100,7 +110,7 @@ var ReactQiitaList = React.createClass({
     },
 });
 
-// 記事閲覧用のWebView
+// 2.詳細画面
 var ReactQiitaItemView = React.createClass({
     render: function() {
         return (
@@ -110,6 +120,7 @@ var ReactQiitaItemView = React.createClass({
       }
 });
 
+// スタイル
 const styles = StyleSheet.create({
  navigator: {
     flex: 1
