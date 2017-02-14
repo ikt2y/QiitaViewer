@@ -12,7 +12,7 @@ var SearchTab = React.createClass({
         <NavigatorIOS
             style={styles.container}
             initialRoute={{
-                title: "Search Entlies",
+                title: "Search Entries",
                 component: SearchEntry
             }}
         />
