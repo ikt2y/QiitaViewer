@@ -66,6 +66,7 @@ var ReactQiitaList = React.createClass({
             .then((response) => response.json())
             .then((responseData) => {
                 // stateの更新
+                    // ListViewのdataSourceであるitems
                 this.setState({
                     items: this.state.items.cloneWithRows(responseData),
                     loaded: true,
